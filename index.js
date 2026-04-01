@@ -34,5 +34,14 @@ app.post('/api/chat', async (req, res) => {
   }
 })
 
-app.listen(3001, () => console.log('Server running on port 3001'))
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://kxrma35.github.io/bulking-tracker/"],
+  methods: "GET,POST",
+};
+app.use(cors(corsOptions));
+
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
