@@ -28,7 +28,10 @@ app.post('/api/chat', async (req, res) => {
     })
 
     const data = await response.json()
-    const textBlock = data.content.find(block => block.type === 'text')
+
+    const textBlocks = data.content.filter(block => block.type === 'text')
+    const textBlock = textBlocks[textBlocks.length - 1]
+
     res.json({ reply: textBlock ? textBlock.text : 'No response received.' })
   } catch (err) {
     console.error(err)
@@ -36,14 +39,5 @@ app.post('/api/chat', async (req, res) => {
   }
 })
 
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://kxrma35.github.io/bulking-tracker/"],
-  methods: "GET,POST",
-};
-app.use(cors(corsOptions));
-
-
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
